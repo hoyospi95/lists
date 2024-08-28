@@ -16,8 +16,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method");
+        return head == null;
     }
 
     @Override
