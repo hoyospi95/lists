@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class MyList<T> implements List<T> {
+	private Node<T> head;
 
     @Override
     public int size() {
@@ -14,8 +15,8 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
+        // nuevo cambio de pineda
+        return head != null;
     }
 
     @Override
