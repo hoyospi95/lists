@@ -20,8 +20,8 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean contains(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'contains'");
+        // modificado por gabriel
+        return true;
     }
 
     @Override
