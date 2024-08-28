@@ -10,19 +10,20 @@ public class MyList<T> implements List<T> {
 
     @Override
     public int size() {
-        return 10;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method");
     }
 
     @Override
     public boolean isEmpty() {
-        // nuevo cambio de pineda
-        return head != null;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method");
     }
 
     @Override
     public boolean contains(Object o) {
-        // modificado por gabriel
-        return true;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method");
     }
 
     @Override
