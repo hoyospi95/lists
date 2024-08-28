@@ -16,11 +16,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean isEmpty() {
-        boolean temp = false;
-        if(head != null){
-            temp = true;
-        }
-        return temp;
+        return head == null;
     }
 
     @Override
