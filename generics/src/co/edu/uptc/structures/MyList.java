@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 public class MyList<T> implements List<T> {
     private Node<T> head;
@@ -174,10 +175,88 @@ public class MyList<T> implements List<T> {
 
     @Override
     public ListIterator<T> listIterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listIterator'");
-    }
+        return new ListIterator<T>() {
+            private Node<T> currentNode = head;
+            private Node<T> previousNode = null;
+            private int currentIndex = 0;
 
+            @Override
+            public boolean hasNext() {
+                return currentNode != null;
+            }
+
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                previousNode = currentNode;
+                currentNode = currentNode.getNext();
+                currentIndex++;
+                return previousNode.getData();
+            }
+
+            @Override
+            public boolean hasPrevious() {
+                return previousNode != null;
+            }
+
+            @Override
+            public T previous() {
+                if (!hasPrevious()) {
+                    throw new NoSuchElementException();
+                }
+                if (currentIndex == 1) {
+                    currentNode = head;
+                } else {
+                    currentNode = head;
+                    for (int i = 0; i < currentIndex - 1; i++) {
+                        currentNode = currentNode.getNext();
+                    }
+                    previousNode = currentNode;
+                    currentIndex--;
+
+                }
+                return currentNode.getData();
+            }
+
+            @Override
+            public int nextIndex() {
+                return currentIndex;
+            }
+
+            @Override
+            public int previousIndex() {
+                return currentIndex - 1;
+            }
+
+            @Override
+            public void remove() {
+                if (previousNode == null) {
+                    throw new IllegalStateException();
+                }
+                MyList.this.remove(previousNode.getData());
+                previousNode = null;
+            }
+
+            @Override
+            public void set(T e) {
+                if (previousNode == null) {
+                    throw new IllegalStateException();
+                }
+                previousNode.setData(e);
+            }
+
+            @Override
+            public void add(T e) {
+                MyList.this.add(currentIndex, e);
+                previousNode = null;
+                currentIndex++;
+            }
+
+        };
+
+    }
     @Override
     public ListIterator<T> listIterator(int index) {
         // TODO Auto-generated method stub
