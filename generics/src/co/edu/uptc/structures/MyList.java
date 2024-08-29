@@ -7,6 +7,7 @@ import java.util.ListIterator;
 
 public class MyList<T> implements List<T> {
     private Node<T> head;
+    private Node<T> last;
 
     @Override
     public int size() {
@@ -144,5 +145,10 @@ public class MyList<T> implements List<T> {
     public List<T> subList(int fromIndex, int toIndex) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'subList'");
+    }
+
+    public Iterator<T> descendingIterator() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'descendingIterator'");
     }
 }
