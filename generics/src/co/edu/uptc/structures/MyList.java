@@ -12,8 +12,14 @@ public class MyList<T> implements List<T> {
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method");
+        Node<T> aux = head;
+		int count = 0;
+		while (aux != null) {
+			count++;
+			aux = aux.getNext();
+            
+		}
+		return count;
     }
 
     @Override
