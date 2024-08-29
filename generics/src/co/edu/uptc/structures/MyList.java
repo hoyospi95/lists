@@ -64,9 +64,23 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean remove(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        Node<T> temp = head;
+        Node<T> prev = null;
+        while (temp != null) {
+            if (temp.getData().equals(o)) {
+                if (prev == null) {
+                    head = temp.getNext();
+                } else {
+                    prev.setNext(prev.getNext());
+                }
+            }
+            prev = temp;
+            temp = temp.getNext();
+        }
+
+        return false;
     }
+
 
     @Override
     public boolean containsAll(Collection<?> c) {
