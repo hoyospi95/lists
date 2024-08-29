@@ -16,6 +16,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean isEmpty() {
+	//otra linea ue se agrego
         return head != null;
     }
 
