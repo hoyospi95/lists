@@ -5,8 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.w3c.dom.Node;
-
 public class MyList<T> implements List<T> {
     private Node<T> head;
     private Node<T> last;
