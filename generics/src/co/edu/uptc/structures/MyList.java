@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
+import java.util.function.UnaryOperator;
 
 public class MyList<T> implements List<T> {
     private Node<T> head;
@@ -408,4 +409,13 @@ public class MyList<T> implements List<T> {
         // No es necesario.
         throw new UnsupportedOperationException("Unimplemented method 'equals'");
     }
+
+    public void replaceAll2(UnaryOperator<T> operator) {
+    Node<T> aux = head;
+    while (aux!= null) {
+        T newValue = operator.apply(aux.getData());
+        aux.setData(newValue);
+        aux = aux.getNext();
+    }
+}
 }
