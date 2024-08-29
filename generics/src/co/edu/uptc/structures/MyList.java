@@ -129,8 +129,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public void clear() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'clear'");
+        this.head=null;
     }
 
     @Override
