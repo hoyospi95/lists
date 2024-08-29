@@ -361,7 +361,8 @@ public class MyList<T> implements List<T> {
             current = current.getNext();
         }
     
-        return subList;}
+        return subList;
+    }
 
     public Iterator<T> descendingIterator() {
         // TODO Auto-generated method stub
