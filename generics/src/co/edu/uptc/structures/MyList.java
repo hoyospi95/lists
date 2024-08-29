@@ -58,8 +58,17 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean add(T e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
+        Node<T> newNode = new Node<T>(e);
+		if (this.head==null) {
+			this.head = newNode;
+		}else {
+			Node<T> aux = this.head;
+			while(aux.getNext()!=null) {
+				aux = aux.getNext();
+			}
+			aux.setNext(newNode);
+		}
+        return true;
     }
 
     @Override
