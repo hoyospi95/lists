@@ -85,8 +85,13 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addAll'");
+        boolean add = false;
+       for (T t : c) {
+        if (add(t )) {
+            add = true;
+        }
+       }
+       return add;
     }
 
     @Override
