@@ -60,15 +60,15 @@ public class MyList<T> implements List<T> {
     @Override
     public boolean add(T e) {
         Node<T> newNode = new Node<T>(e);
-		if (this.head==null) {
-			this.head = newNode;
-		}else {
-			Node<T> aux = this.head;
-			while(aux.getNext()!=null) {
-				aux = aux.getNext();
-			}
-			aux.setNext(newNode);
-		}
+        if (this.head == null) {
+            this.head = newNode;
+        } else {
+            Node<T> aux = this.head;
+            while (aux.getNext() != null) {
+                aux = aux.getNext();
+            }
+            aux.setNext(newNode);
+        }
         return true;
     }
 
@@ -134,8 +134,16 @@ public class MyList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+        Node<T> aux = head;
+        T data = null;
+        for (int i = 0; i < size(); i++) {
+            if (i == index) {
+                data = aux.getData();
+            } else {
+                aux = aux.getNext();
+            }
+        }
+        return data;
     }
 
     @Override
@@ -292,10 +300,9 @@ public class MyList<T> implements List<T> {
         throw new UnsupportedOperationException("Unimplemented method 'descendingIterator'");
     }
 
-
     @Override
-    public boolean equals(Object o){
-        //No es necesario.
+    public boolean equals(Object o) {
+        // No es necesario.
         throw new UnsupportedOperationException("Unimplemented method 'equals'");
     }
 }
