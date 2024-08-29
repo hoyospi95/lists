@@ -35,8 +35,20 @@ public class MyList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
+        |@Override
+            return new Iterator<T>() {
+                Node <T> aux = head;
+                @Override
+                public boolean hasNext(){
+                    return aux != null;
+                }
+    
+                public T next(){
+                    T value = aux.getValue();
+                    aux = aux.getNext();
+                    return value;
+                }
+            };
     }
 
     @Override
@@ -186,10 +198,9 @@ public class MyList<T> implements List<T> {
         throw new UnsupportedOperationException("Unimplemented method 'descendingIterator'");
     }
 
-
     @Override
-    public boolean equals(Object o){
-        //No es necesario.
+    public boolean equals(Object o) {
+        // No es necesario.
         throw new UnsupportedOperationException("Unimplemented method 'equals'");
     }
 }
