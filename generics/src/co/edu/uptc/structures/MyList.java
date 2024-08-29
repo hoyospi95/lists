@@ -70,6 +70,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public <T> T[] toArray(T[] a) {
+        //No se necesita modificacion en las listas dobles
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'toArray'");
     }
