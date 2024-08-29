@@ -145,4 +145,10 @@ public class MyList<T> implements List<T> {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'subList'");
     }
+    
+    //Sobreescritura del método equals ( no es necesario )
+    @Override
+    public boolean equals(Object o){
+        throw new UnsupportedOperationException("Unimplemented method 'equals'");
+    }
 }
