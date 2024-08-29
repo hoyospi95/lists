@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class MyList<T> implements List<T> {
-	private Node<T> head;
+    private Node<T> head;
+    private Node<T> last;
 
     @Override
     public int size() {
@@ -22,8 +23,14 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean contains(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method");
+        Node<T> aux = head;
+        while (aux != null) {
+            if (aux.getData().equals(o)) {
+                return true;
+            }
+            aux = aux.getNext();
+        }
+        return false;
     }
 
     @Override
@@ -34,8 +41,13 @@ public class MyList<T> implements List<T> {
 
     @Override
     public Object[] toArray() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toArray'");
+        Object[] array = new Object[size()];
+        Node<T> aux = head;
+        for (int i = 0; i < size(); i++) {
+            array[i] = aux;
+            aux = aux.getNext();
+        }
+        return array;
     }
 
     @Override
@@ -121,8 +133,31 @@ public class MyList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        if (index < 0 || index >= size()) {
+            return null;
+        }
+
+        Node<T> aux = head;
+        Node<T> previous = null;
+        T recovered = null;
+
+        if (index == 0 && head != null) {
+            recovered = head.getData();
+            head = head.getNext();
+            return recovered;
+        }
+
+        for (int i = 0; i < index; i++) {
+            previous = aux;
+            aux = aux.getNext();
+        }
+
+        if (aux != null) {
+            recovered = aux.getData();
+            previous.setNext(aux.getNext());
+        }
+
+        return recovered;
     }
 
     @Override
@@ -153,5 +188,17 @@ public class MyList<T> implements List<T> {
     public List<T> subList(int fromIndex, int toIndex) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'subList'");
+    }
+
+    public Iterator<T> descendingIterator() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'descendingIterator'");
+    }
+
+
+    @Override
+    public boolean equals(Object o){
+        //No es necesario.
+        throw new UnsupportedOperationException("Unimplemented method 'equals'");
     }
 }
