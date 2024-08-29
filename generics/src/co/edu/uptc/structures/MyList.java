@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
+import java.util.function.UnaryOperator;
 
 public class MyList<T> implements List<T> {
     private Node<T> head;
@@ -373,8 +374,29 @@ public class MyList<T> implements List<T> {
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'subList'");
+        if (fromIndex < 0 || toIndex > size() || fromIndex > toIndex) {
+            throw new IndexOutOfBoundsException("Índice fuera de rango");
+        }
+    
+        MyList<T> subList = new MyList<>();
+        Node<T> current = head;
+    
+        for (int i = 0; i < fromIndex; i++) {
+            if (current == null) {
+                throw new IndexOutOfBoundsException("Índice fuera de rango");
+            }
+            current = current.getNext();
+        }
+    
+        for (int i = fromIndex; i < toIndex; i++) {
+            if (current == null) {
+                break;
+            }
+            subList.add(current.getData());
+            current = current.getNext();
+        }
+    
+        return subList;
     }
 
     public Iterator<T> descendingIterator() {
@@ -387,4 +409,13 @@ public class MyList<T> implements List<T> {
         // No es necesario.
         throw new UnsupportedOperationException("Unimplemented method 'equals'");
     }
+
+    public void replaceAll2(UnaryOperator<T> operator) {
+    Node<T> aux = head;
+    while (aux!= null) {
+        T newValue = operator.apply(aux.getData());
+        aux.setData(newValue);
+        aux = aux.getNext();
+    }
+}
 }
