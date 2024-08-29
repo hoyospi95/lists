@@ -257,8 +257,18 @@ public class MyList<T> implements List<T> {
 
     @Override
     public int indexOf(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'indexOf'");
+        Node<T> aux = head;
+        int index = 0;
+
+        while (aux!=null) {
+            if (o.equals(aux.getData())) {
+                return index;
+            }
+            aux = aux.getNext();
+            index++;
+        }
+
+        return -1;
     }
 
     @Override
