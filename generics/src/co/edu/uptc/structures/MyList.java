@@ -339,9 +339,29 @@ public class MyList<T> implements List<T> {
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'subList'");
-    }
+        if (fromIndex < 0 || toIndex > size() || fromIndex > toIndex) {
+            throw new IndexOutOfBoundsException("Índice fuera de rango");
+        }
+    
+        MyList<T> subList = new MyList<>();
+        Node<T> current = head;
+    
+        for (int i = 0; i < fromIndex; i++) {
+            if (current == null) {
+                throw new IndexOutOfBoundsException("Índice fuera de rango");
+            }
+            current = current.getNext();
+        }
+    
+        for (int i = fromIndex; i < toIndex; i++) {
+            if (current == null) {
+                break;
+            }
+            subList.add(current.getData());
+            current = current.getNext();
+        }
+    
+        return subList;}
 
     public Iterator<T> descendingIterator() {
         // TODO Auto-generated method stub
