@@ -128,8 +128,20 @@ public class MyList<T> implements List<T> {
 
     @Override
     public void add(int index, T element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
+        if(index>=size()){
+            add(element);
+       }else if(index==0){
+           Node<T> temp =new Node<T>(element);
+           temp.setNext(head);head = temp;
+       }else{
+           Node<T> aux = head;
+           for (int i = 0; aux != null && i < index; i++) {
+               aux = aux.getNext();
+           }
+           Node<T> temp =new Node<T>(element);
+           temp.setNext(aux.getNext());
+           aux.setNext(temp);
+        }
     }
 
     @Override
