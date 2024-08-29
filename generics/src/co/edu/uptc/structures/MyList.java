@@ -99,8 +99,12 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'containsAll'");
+        for (Object object : c) {
+			if(!contains(object)) {
+				return false;
+			}
+		}
+		return true;
     }
 
     @Override
