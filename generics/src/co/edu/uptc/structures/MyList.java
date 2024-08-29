@@ -131,9 +131,19 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addAll'");
-    }
+		Node<T> aux = head;
+		int i = 0;
+		while(aux != null && i<index+c.size()) {
+			if(i==index) {
+				for (T element : c) {
+					this.add(i,element);
+					i++;
+				}
+			}
+			i++;
+		}
+		return true;
+	}
 
     @Override
     public boolean removeAll(Collection<?> c) {
