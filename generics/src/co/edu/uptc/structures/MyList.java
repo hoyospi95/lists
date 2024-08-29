@@ -13,13 +13,13 @@ public class MyList<T> implements List<T> {
     @Override
     public int size() {
         Node<T> aux = head;
-		int count = 0;
-		while (aux != null) {
-			count++;
-			aux = aux.getNext();
-            
-		}
-		return count;
+        int count = 0;
+        while (aux != null) {
+            count++;
+            aux = aux.getNext();
+
+        }
+        return count;
     }
 
     @Override
@@ -97,7 +97,6 @@ public class MyList<T> implements List<T> {
         return false;
     }
 
-
     @Override
     public boolean containsAll(Collection<?> c) {
         // TODO Auto-generated method stub
@@ -107,12 +106,12 @@ public class MyList<T> implements List<T> {
     @Override
     public boolean addAll(Collection<? extends T> c) {
         boolean add = false;
-       for (T t : c) {
-        if (add(t )) {
-            add = true;
+        for (T t : c) {
+            if (add(t)) {
+                add = true;
+            }
         }
-       }
-       return add;
+        return add;
     }
 
     @Override
@@ -135,7 +134,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public void clear() {
-        this.head=null;
+        this.head = null;
     }
 
     @Override
@@ -154,25 +153,40 @@ public class MyList<T> implements List<T> {
 
     @Override
     public T set(int index, T element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'set'");
+        Node<T> nodeSet = new Node<T>(element);
+        Node<T> auxNode = head;
+        Node<T> deleted = null;
+        int count = 0;
+        while (auxNode != null && count < index - 1) {
+            auxNode = auxNode.getNext();
+            count++;
+        }
+        if (auxNode != null) {
+            deleted = auxNode.getNext();
+            nodeSet.setNext(auxNode.getNext().getNext());
+            auxNode.setNext(nodeSet);
+            return deleted.getData();
+        } else {
+            return null;
+        }
     }
 
     @Override
     public void add(int index, T element) {
-        if(index>=size()){
+        if (index >= size()) {
             add(element);
-       }else if(index==0){
-           Node<T> temp =new Node<T>(element);
-           temp.setNext(head);head = temp;
-       }else{
-           Node<T> aux = head;
-           for (int i = 0; aux != null && i < index; i++) {
-               aux = aux.getNext();
-           }
-           Node<T> temp =new Node<T>(element);
-           temp.setNext(aux.getNext());
-           aux.setNext(temp);
+        } else if (index == 0) {
+            Node<T> temp = new Node<T>(element);
+            temp.setNext(head);
+            head = temp;
+        } else {
+            Node<T> aux = head;
+            for (int i = 0; aux != null && i < index; i++) {
+                aux = aux.getNext();
+            }
+            Node<T> temp = new Node<T>(element);
+            temp.setNext(aux.getNext());
+            aux.setNext(temp);
         }
     }
 
@@ -301,6 +315,7 @@ public class MyList<T> implements List<T> {
         };
 
     }
+
     @Override
     public ListIterator<T> listIterator(int index) {
         // TODO Auto-generated method stub
