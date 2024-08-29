@@ -18,6 +18,7 @@ public class MyList<T> implements List<T> {
     public boolean isEmpty() {
 	//otra linea ue se agrego
 	//vuelve y juega
+	// nuevo cambio desde claudia
         return head != null;
     }
 
