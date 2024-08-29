@@ -134,7 +134,8 @@ public class MyList<T> implements List<T> {
 
     @Override
     public void clear() {
-        this.head = null;
+        head = null;
+        last = null;
     }
 
     @Override
@@ -153,7 +154,9 @@ public class MyList<T> implements List<T> {
 
     @Override
     public T set(int index, T element) {
-        Node<T> nodeSet = new Node<T>(element), auxNode = head, deleted = null;
+        Node<T> nodeSet = new Node<T>(element);
+        Node<T> auxNode = head;
+        Node<T> deleted = null;
         int count = 0;
         while (auxNode != null && count < index - 1) {
             auxNode = auxNode.getNext();
