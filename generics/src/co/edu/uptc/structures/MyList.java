@@ -185,4 +185,11 @@ public class MyList<T> implements List<T> {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'descendingIterator'");
     }
+
+
+    @Override
+    public boolean equals(Object o){
+        //No es necesario.
+        throw new UnsupportedOperationException("Unimplemented method 'equals'");
+    }
 }
