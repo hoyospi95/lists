@@ -25,8 +25,14 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean contains(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method");
+        Node<T> aux = head;
+        while (aux != null) {
+            if (aux.getData().equals(o)) {
+                return true;
+            }
+            aux = aux.getNext();
+        }
+        return false;
     }
 
     @Override
