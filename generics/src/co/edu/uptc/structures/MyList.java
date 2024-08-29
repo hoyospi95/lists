@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.w3c.dom.Node;
+
 public class MyList<T> implements List<T> {
     private Node<T> head;
     private Node<T> last;
@@ -17,7 +19,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean isEmpty() {
-         // TODO Auto-generated method stub
+        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method");
     }
 
@@ -35,8 +37,13 @@ public class MyList<T> implements List<T> {
 
     @Override
     public Object[] toArray() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toArray'");
+        Object[] array = new Object[size()];
+        Node<T> aux = head;
+        for (int i = 0; i < size(); i++) {
+            array[i] = aux;
+            aux = aux.getNext();
+        }
+        return array;
     }
 
     @Override
