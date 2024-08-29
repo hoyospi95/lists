@@ -99,13 +99,13 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
+      
         for (Object object : c) {
 			if(!contains(object)) {
 				return false;
 			}
 		}
 		return true;
-      
     }
 
     @Override
