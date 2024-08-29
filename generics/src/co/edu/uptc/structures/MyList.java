@@ -253,10 +253,13 @@ public class MyList<T> implements List<T> {
 
     @Override
     public int lastIndexOf(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'lastIndexOf'");
+        for (int i = size() - 1; i > 0; i--) {
+            if (get(i) == o) {
+                return i;
+            }
+        }
+        return -1;
     }
-
     @Override
     public ListIterator<T> listIterator() {
         return new ListIterator<T>() {
