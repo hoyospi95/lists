@@ -128,8 +128,19 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'retainAll'");
+        Node<T> aux = head;
+        Node<T> previous = null;
+        boolean modified = false;
+        while (aux != null) {
+            if (!c.contains(aux.getData())) {
+                previous.setNext(aux.getNext());
+                modified = true;
+            } else {
+                previous = aux;
+            }
+            aux = aux.getNext();
+        }
+        return modified;
     }
 
     @Override
