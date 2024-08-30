@@ -158,6 +158,7 @@ public class MyList<T> implements List<T> {
                 if (current.getNext() == null) {
                     recovered = current.getData();
                     previous.setNext(null);
+                    last = previous;
                     return recovered;
                 }else{
                     previous = current;
@@ -225,12 +226,15 @@ public class MyList<T> implements List<T> {
         throw new UnsupportedOperationException("Unimplemented method 'subList'");
     }
 
+<<<<<<< Updated upstream
     public Iterator<T> descendingIterator() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'descendingIterator'");
     }
 
 
+=======
+>>>>>>> Stashed changes
     @Override
     public boolean equals(Object o){
         //No es necesario.
