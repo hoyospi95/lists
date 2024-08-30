@@ -317,10 +317,12 @@ public class MyList<T> implements List<T> {
 
     @Override
     public int indexOf(Object o) {
-        Node<T> aux = head;
-        int index = 0;
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'indexOf'");
+        for (int i = 0; i < size(); i++) {
+            if (get(i).equals(o)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
