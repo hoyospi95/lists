@@ -60,6 +60,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public Object[] toArray() {
+        //No requiere cambio
         Object[] array = new Object[size()];
         Node<T> aux = head;
         for (int i = 0; i < size(); i++) {
