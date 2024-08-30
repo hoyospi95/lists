@@ -47,28 +47,9 @@ public class MyList<T> implements List<T> {
         throw new UnsupportedOperationException("Unimplemented method 'iterator'");
     }
 
-    public Iterator<T> descendingIterator(){
-        return new Iterator<T>() {
-
-            private Node<T> aux = last;
-
-            @Override
-            public boolean hasNext() {
-                return aux != null;
-            }
-
-            @Override
-            public T next() {
-                T value = aux.getData();
-                aux = aux.getPrevious();
-                return value;
-            }
-        };
-    }
-
     @Override
     public Object[] toArray() {
-        //No requiere cambio
+        // No requiere cambio
         Object[] array = new Object[size()];
         Node<T> aux = head;
         for (int i = 0; i < size(); i++) {
@@ -85,38 +66,43 @@ public class MyList<T> implements List<T> {
     }
 
     @Override
-public boolean add(T e) {
-    Node<T> newNode = new Node<>(e);
-    
-    if (head == null) {
-        head = newNode;
-        last = newNode;
-    } else {
-        last.setNext(newNode);
-        newNode.setPrevious(last);
-        last = newNode;
-    }
-    
-    return true;
-}
+    public boolean add(T e) {
+        Node<T> newNode = new Node<>(e);
 
+        if (head == null) {
+            head = newNode;
+            last = newNode;
+        } else {
+            last.setNext(newNode);
+            newNode.setPrevious(last);
+            last = newNode;
+        }
+
+        return true;
+    }
 
     @Override
     public boolean remove(Object o) {
         Node<T> temp = head;
-        Node<T> prev = null;
+
         while (temp != null) {
             if (temp.getData().equals(o)) {
-                if (prev == null) {
+                if (temp == head) {
                     head = temp.getNext();
+                } else if (temp == last) {
+                    last = temp.getPrevious();
+                    if (last != null) {
+                        last.setNext(null);
+                    }
                 } else {
-                    prev.setNext(prev.getNext());
+                    temp.getPrevious().setNext(temp.getNext());
+                    temp.getNext().setPrevious(temp.getPrevious());
                 }
+
+                return true;
             }
-            prev = temp;
             temp = temp.getNext();
         }
-
         return false;
     }
 
@@ -128,7 +114,7 @@ public boolean add(T e) {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        //No necesita modificaciones
+        // No necesita modificaciones
         boolean add = false;
         for (T t : c) {
             if (add(t)) {
@@ -146,13 +132,13 @@ public boolean add(T e) {
 
     @Override
     public boolean removeAll(Collection<?> c) {
-	boolean temp = false;
-	for (Object o : c) {
-		while (remove(o)) {
-			temp = true;
-		}
-	}
-	return temp;
+        boolean temp = false;
+        for (Object o : c) {
+            while (remove(o)) {
+                temp = true;
+            }
+        }
+        return temp;
     }
 
     @Override
@@ -228,13 +214,13 @@ public boolean add(T e) {
             return recovered;
         }
 
-        if (index == size()-1) {
-            while (current!=null) {
+        if (index == size() - 1) {
+            while (current != null) {
                 if (current.getNext() == null) {
                     recovered = current.getData();
                     previous.setNext(null);
                     return recovered;
-                }else{
+                } else {
                     previous = current;
                     current = current.getNext();
                 }
@@ -244,19 +230,19 @@ public boolean add(T e) {
         for (int i = 0; i < index; i++) {
             current = current.getNext();
         }
-    
+
         recovered = current.getData();
         previous = current.getPrevious();
         Node<T> next = current.getNext();
-    
+
         if (previous != null) {
             previous.setNext(next);
         }
-    
+
         if (next != null) {
             next.setPrevious(previous);
         }
-    
+
         return recovered;
     }
 
@@ -265,23 +251,28 @@ public boolean add(T e) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'indexOf'");
     }
+
     @Override
     public int lastIndexOf(Object o) {
 
-        /*Node<T> aux = last;
-        int size = size();
+        /*
+         * Node<T> aux = last;
+         * int size = size();
+         * 
+         * while (aux != null) {
+         * if (aux.getData().equals(o)) {
+         * return size;
+         * }
+         * aux.getPrevious();
+         * size--;
+         * }
+         * return -1;
+         * Este metodo es un ejemplo de como se podria hacer usando la implementacion de
+         * la variable last
+         * pero, la implementacion del metodo se deja como la antigua ya que es mucho
+         * mas eficaz
+         */
 
-        while (aux != null) {
-            if (aux.getData().equals(o)) {
-                return size;
-            }
-            aux.getPrevious();
-            size--;
-        }
-        return -1;
-        Este metodo es un ejemplo de como se podria hacer usando la implementacion de la variable last
-        pero, la implementacion del metodo se deja como la antigua ya que es mucho mas eficaz */
-        
         for (int i = size() - 1; i > 0; i--) {
             if (get(i) == o) {
                 return i;
@@ -289,6 +280,7 @@ public boolean add(T e) {
         }
         return -1;
     }
+
     @Override
     public ListIterator<T> listIterator() {
         return new ListIterator<T>() {
@@ -387,8 +379,21 @@ public boolean add(T e) {
     }
 
     public Iterator<T> descendingIterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'descendingIterator'");
+        return new Iterator<T>() {
+
+            private Node<T> aux = last;
+
+            @Override
+            public boolean hasNext() {
+                return aux != null;
+            }
+
+            @Override
+            public T next() {
+                T value = aux.getData();
+                aux = aux.getPrevious();
+                return value;
+            }
     }
 
     @Override
