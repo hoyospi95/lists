@@ -42,22 +42,22 @@ public class MyList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        |@Override
-            return new Iterator<T>() {
-                Node <T> aux = head;
-                @Override
-                public boolean hasNext(){
-                    return aux != null;
-                }
-    
-                public T next(){
-                    T value = aux.getValue();
-                    aux = aux.getNext();
-                    return value;
-                }
-            };
-    }
+        return new Iterator<T>() {
+            Node<T> aux = head;
 
+            @Override
+            public boolean hasNext() {
+                return aux != null;
+            }
+
+            public T next() {
+                T value = aux.getData();
+                aux = aux.getNext();
+                return value;
+            }
+        };
+    }
+    
     @Override
     public Object[] toArray() {
         Object[] array = new Object[size()];
@@ -112,11 +112,11 @@ public class MyList<T> implements List<T> {
     @Override
     public boolean containsAll(Collection<?> c) {
         for (Object object : c) {
-			if(!contains(object)) {
-				return false;
-			}
-		}
-		return true;
+            if (!contains(object)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -132,19 +132,19 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-		Node<T> aux = head;
-		int i = 0;
-		while(aux != null && i<index+c.size()) {
-			if(i==index) {
-				for (T element : c) {
-					this.add(i,element);
-					i++;
-				}
-			}
-			i++;
-		}
-		return true;
-	}
+        Node<T> aux = head;
+        int i = 0;
+        while (aux != null && i < index + c.size()) {
+            if (i == index) {
+                for (T element : c) {
+                    this.add(i, element);
+                    i++;
+                }
+            }
+            i++;
+        }
+        return true;
+    }
 
     @Override
     public boolean removeAll(Collection<?> c) {
@@ -159,12 +159,20 @@ public class MyList<T> implements List<T> {
         boolean modified = false;
         while (aux != null) {
             if (!c.contains(aux.getData())) {
-                previous.setNext(aux.getNext());
-                modified = true;
+                if (aux.equals(head)) {
+                    head = aux.getNext();
+                    head.setPrevious(previous);
+                }else{
+                    previous.setNext(aux.getNext());
+                    modified = true;
+                }
             } else {
                 previous = aux;
             }
             aux = aux.getNext();
+            if (aux!=null) {
+                aux.setPrevious(previous);
+            }
         }
         return modified;
     }
@@ -261,7 +269,7 @@ public class MyList<T> implements List<T> {
         Node<T> aux = head;
         int index = 0;
 
-        while (aux!=null) {
+        while (aux != null) {
             if (o.equals(aux.getData())) {
                 return index;
             }
@@ -281,6 +289,7 @@ public class MyList<T> implements List<T> {
         }
         return -1;
     }
+
     @Override
     public ListIterator<T> listIterator() {
         return new ListIterator<T>() {
@@ -377,17 +386,17 @@ public class MyList<T> implements List<T> {
         if (fromIndex < 0 || toIndex > size() || fromIndex > toIndex) {
             throw new IndexOutOfBoundsException("Índice fuera de rango");
         }
-    
+
         MyList<T> subList = new MyList<>();
         Node<T> current = head;
-    
+
         for (int i = 0; i < fromIndex; i++) {
             if (current == null) {
                 throw new IndexOutOfBoundsException("Índice fuera de rango");
             }
             current = current.getNext();
         }
-    
+
         for (int i = fromIndex; i < toIndex; i++) {
             if (current == null) {
                 break;
@@ -395,7 +404,7 @@ public class MyList<T> implements List<T> {
             subList.add(current.getData());
             current = current.getNext();
         }
-    
+
         return subList;
     }
 
@@ -411,11 +420,11 @@ public class MyList<T> implements List<T> {
     }
 
     public void replaceAll2(UnaryOperator<T> operator) {
-    Node<T> aux = head;
-    while (aux!= null) {
-        T newValue = operator.apply(aux.getData());
-        aux.setData(newValue);
-        aux = aux.getNext();
+        Node<T> aux = head;
+        while (aux != null) {
+            T newValue = operator.apply(aux.getData());
+            aux.setData(newValue);
+            aux = aux.getNext();
+        }
     }
-}
 }
