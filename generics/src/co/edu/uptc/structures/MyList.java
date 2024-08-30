@@ -197,14 +197,12 @@ public boolean add(T e) {
             nodeSet.setNext(auxNode.getNext().getNext());
             nodeSet.setPrevious(auxNode);
             auxNode.setNext(nodeSet);
-            System.out.println(auxNode.getNext().getPrevious().getData());
-                return deleted.getData();
         } else {
             deleted=auxNode;
             nodeSet.setNext(auxNode.getNext());
             this.head=nodeSet;
-                return deleted.getData();
         }
+            return deleted.getData();
     }
 
     @Override
