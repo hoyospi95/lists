@@ -42,7 +42,6 @@ public class MyList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        |@Override
             return new Iterator<T>() {
                 Node <T> aux = head;
                 @Override
@@ -51,30 +50,11 @@ public class MyList<T> implements List<T> {
                 }
     
                 public T next(){
-                    T value = aux.getValue();
+                    T value = aux.getData();
                     aux = aux.getNext();
                     return value;
                 }
             };
-    }
-
-    public Iterator<T> descendingIterator(){
-        return new Iterator<T>() {
-
-            private Node<T> aux = last;
-
-            @Override
-            public boolean hasNext() {
-                return aux != null;
-            }
-
-            @Override
-            public T next() {
-                T value = aux.getData();
-                aux = aux.getPrevious();
-                return value;
-            }
-        };
     }
 
     @Override
@@ -95,21 +75,19 @@ public class MyList<T> implements List<T> {
     }
 
     @Override
-public boolean add(T e) {
-    Node<T> newNode = new Node<>(e);
-    
-    if (head == null) {
-        head = newNode;
-        last = newNode;
-    } else {
-        last.setNext(newNode);
-        newNode.setPrevious(last);
-        last = newNode;
+    public boolean add(T e) {
+        Node<T> newNode = new Node<T>(e);
+        if (this.head == null) {
+            this.head = newNode;
+        } else {
+            Node<T> aux = this.head;
+            while (aux.getNext() != null) {
+                aux = aux.getNext();
+            }
+            aux.setNext(newNode);
+        }
+        return true;
     }
-    
-    return true;
-}
-
 
     @Override
     public boolean remove(Object o) {
@@ -169,13 +147,8 @@ public boolean add(T e) {
 
     @Override
     public boolean removeAll(Collection<?> c) {
-	boolean temp = false;
-	for (Object o : c) {
-		while (remove(o)) {
-			temp = true;
-		}
-	}
-	return temp;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'removeAll'");
     }
 
     @Override
@@ -197,8 +170,7 @@ public boolean add(T e) {
 
     @Override
     public void clear() {
-        head = null;
-        last = null;
+        this.head = null;
     }
 
     @Override
@@ -427,8 +399,22 @@ public boolean add(T e) {
     }
 
     public Iterator<T> descendingIterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'descendingIterator'");
+        return new Iterator<T>() {
+
+            private Node<T> aux = last;
+
+            @Override
+            public boolean hasNext() {
+                return aux != null;
+            }
+
+            @Override
+            public T next() {
+                T value = aux.getData();
+                aux = aux.getPrevious();
+                return value;
+            }
+        };
     }
 
     @Override
