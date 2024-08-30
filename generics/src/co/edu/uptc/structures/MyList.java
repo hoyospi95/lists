@@ -87,9 +87,9 @@ public class MyList<T> implements List<T> {
 
         while (temp != null) {
             if (temp.getData().equals(o)) {
-                if (temp == head) {
+                if (temp.equals(head)) {
                     head = temp.getNext();
-                } else if (temp == last) {
+                } else if (temp.equals(last)) {
                     last = temp.getPrevious();
                     if (last != null) {
                         last.setNext(null);
@@ -378,23 +378,11 @@ public class MyList<T> implements List<T> {
         throw new UnsupportedOperationException("Unimplemented method 'subList'");
     }
 
-    public Iterator<T> descendingIterator() {
-        return new Iterator<T>() {
-
-            private Node<T> aux = last;
-
-            @Override
-            public boolean hasNext() {
-                return aux != null;
-            }
-
-            @Override
-            public T next() {
-                T value = aux.getData();
-                aux = aux.getPrevious();
-                return value;
-            }
-    }
+    /*
+     * public Iterator<T> descendingIterator() {
+     * 
+     * }
+     */
 
     @Override
     public boolean equals(Object o) {
