@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
+import java.util.function.UnaryOperator;
 
 public class MyList<T> implements List<T> {
     private Node<T> head;
@@ -18,7 +19,6 @@ public class MyList<T> implements List<T> {
         while (aux != null) {
             count++;
             aux = aux.getNext();
-
         }
         return count;
     }
@@ -126,7 +126,6 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-      
         for (Object object : c) {
 			if(!contains(object)) {
 				return false;
@@ -306,7 +305,8 @@ public class MyList<T> implements List<T> {
     }
 
     @Override
-    public int indexOf(Object o) {   //Modificado por que no encontré el que servia para la lista doble...
+    public int indexOf(Object o) {   
+        //Modificado por que no encontré el que servia para la lista doble...
         Node<T> aux = head;
         int index = -1;
         if (aux!=null) {  
@@ -435,15 +435,6 @@ public class MyList<T> implements List<T> {
         throw new UnsupportedOperationException("Unimplemented method 'listIterator'");
     }
 
- 
-
-
-    @Override
-    public boolean equals(Object o) {
-        // No es necesario.
-        throw new UnsupportedOperationException("Unimplemented method 'equals'");
-    }
-
 
     public void replaceAll2(UnaryOperator<T> operator) {
         Node<T> aux = head;
@@ -452,4 +443,12 @@ public class MyList<T> implements List<T> {
             aux.setData(newValue);
             aux = aux.getNext();
         }
+}
+
+	@Override
+	public List<T> subList(int fromIndex, int toIndex) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
