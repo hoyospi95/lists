@@ -262,9 +262,24 @@ public boolean add(T e) {
     }
 
     @Override
-    public int indexOf(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'indexOf'");
+    public int indexOf(Object o) {   //Modificado por que no encontré el que servia para la lista doble...
+        Node<T> aux = head;
+        int index = -1;
+        if (aux!=null) {
+        
+            index=0;
+
+        }
+        while (aux!=null) {
+
+            if (o.equals(aux.getData())) {
+                return index;
+            }
+            aux = aux.getNext();
+            index++;
+        }
+
+        return index;
     }
     @Override
     public int lastIndexOf(Object o) {
@@ -383,9 +398,67 @@ public boolean add(T e) {
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'subList'");
+
+        if (fromIndex < 0 || toIndex > size()) {
+            throw new IndexOutOfBoundsException("Índice fuera de rango");
+        }
+        MyList<T> subList = new MyList<>();
+        Node<T> current = head;
+        Node<T> Finish = last;
+
+        if (fromIndex<toIndex) {
+                for (int i = 0; i < fromIndex; i++) {
+                    if (current == null) {
+                        throw new IndexOutOfBoundsException("Índice fuera de rango");
+                    }
+                    current = current.getNext();
+                }
+                
+                for (int i = fromIndex; i < toIndex; i++) {
+                    if (current == null) {
+                        break;
+                    }
+                    subList.add(current.getData());
+                    current = current.getNext();
+                }
+            }
+            
+        if (fromIndex > toIndex) {
+            
+            for (int i = indexOf(last) ; i > fromIndex; i--) {
+                if (last.getPrevious() == null) {
+                    throw new IndexOutOfBoundsException("Índice fuera de rango");
+                }
+                Finish = Finish.getPrevious();
+            }
+            
+            for (int i = fromIndex; i > toIndex; i--) {
+                if (last == null) {
+                    break;
+                }
+                subList.add(Finish.getData());
+                Finish = Finish.getPrevious();
+            }
+        }
+        return subList;
     }
+
+   
+
+    /*public String Show(){    // usado para pruebas
+        Node<T> aux = head;
+        last = aux;
+        StringBuilder sb = new StringBuilder();
+        while (aux != null) {
+            sb.append(aux.getData()).append(" -> ");
+            last=aux;
+            aux = aux.getNext();
+        }
+        sb.append("Null");
+
+        return sb.toString();
+        
+    }*/
 
     @Override
     public boolean equals(Object o) {
