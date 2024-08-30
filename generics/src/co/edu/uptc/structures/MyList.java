@@ -47,6 +47,25 @@ public class MyList<T> implements List<T> {
         throw new UnsupportedOperationException("Unimplemented method 'iterator'");
     }
 
+    public Iterator<T> descendingIterator(){
+        return new Iterator<T>() {
+
+            private Node<T> aux = last;
+
+            @Override
+            public boolean hasNext() {
+                return aux != null;
+            }
+
+            @Override
+            public T next() {
+                T value = aux.getData();
+                aux = aux.getPrevious();
+                return value;
+            }
+        };
+    }
+
     @Override
     public Object[] toArray() {
         //No requiere cambio
