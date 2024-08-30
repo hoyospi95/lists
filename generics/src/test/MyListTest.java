@@ -2,73 +2,108 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-class MyListTest {
+import co.edu.uptc.structures.MyList;
 
+class MyListTest {
+	private static MyList<String> list;
+	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+		list = new MyList<String>();
+		list.add("juan");
+		list.add("lola");
 	}
 
 	@Test
 	void testSize() {
-		fail("Not yet implemented");
+		assertEquals(2, list.size());
 	}
 
 	@Test
 	void testIsEmpty() {
-		fail("Not yet implemented");
+		MyList<String> list2 = new MyList<String>();
+		assertEquals(true, list.isEmpty());
 	}
 
 	@Test
 	void testContains() {
-		fail("Not yet implemented");
+		assertEquals(true, list.contains("lola"));
 	}
 
 	@Test
 	void testIterator() {
-		fail("Not yet implemented");
+		Iterator<String> iterator = list.iterator();
+		assertEquals(true, iterator.hasNext());
+		assertEquals("juan", iterator.next());
 	}
 
 	@Test
 	void testToArray() {
-		fail("Not yet implemented");
+		Object[] array = list.toArray();
+		assertEquals("juan", array[0]);
 	}
 
 	@Test
 	void testToArrayTArray() {
-		fail("Not yet implemented");
+		String[] array = list.toArray(new String[list.size()]);
+		assertEquals("lola", array[1]);
 	}
 
 	@Test
 	void testAddT() {
-		fail("Not yet implemented");
+		list.add("laura");
+		assertEquals(true, list.contains("laura"));
+		assertEquals(3, list.size());
 	}
 
 	@Test
 	void testRemoveObject() {
-		fail("Not yet implemented");
+		list.remove("lola");
+		assertEquals(false, list.contains("lola"));
 	}
 
 	@Test
 	void testContainsAll() {
-		fail("Not yet implemented");
+		ArrayList<String> names = new ArrayList<String>();
+		names.add("juan");
+		names.add("lola");
+		boolean actual = list.containsAll(names);
+		assertEquals(true, actual);
+		names.add("lulu");
+		actual = list.containsAll(names);
+		assertEquals(true, actual);
 	}
 
 	@Test
 	void testAddAllCollectionOfQextendsT() {
-		fail("Not yet implemented");
+		ArrayList<String> names = new ArrayList<String>();
+		names.add("juanita");
+		names.add("lolita");
+		list.addAll(names);
+		assertEquals(true, list.contains("lolita"));
 	}
 
 	@Test
 	void testAddAllIntCollectionOfQextendsT() {
-		fail("Not yet implemented");
+		ArrayList<String> names = new ArrayList<String>();
+		names.add("juanita");
+		names.add("lolita");
+		list.addAll(1, names);
+		assertEquals(true, list.get(1).equals("juanita"));
 	}
 
 	@Test
 	void testRemoveAll() {
-		fail("Not yet implemented");
+		ArrayList<String> names = new ArrayList<String>();
+		names.add("juan");
+		list.removeAll(names);
+		assertEquals(true, list.get(0).equals("lola"));
 	}
 
 	@Test
