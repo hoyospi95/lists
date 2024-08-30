@@ -25,7 +25,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean isEmpty() {
-        return head == null;
+        return head == null && last == null;
     }
 
     @Override
