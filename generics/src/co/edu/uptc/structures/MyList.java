@@ -138,6 +138,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
+      
         for (Object object : c) {
 			if(!contains(object)) {
 				return false;
@@ -500,4 +501,13 @@ public class MyList<T> implements List<T> {
         // No es necesario.
         throw new UnsupportedOperationException("Unimplemented method 'equals'");
     }
+
+
+    public void replaceAll2(UnaryOperator<T> operator) {
+        Node<T> aux = head;
+        while (aux!= null) {
+            T newValue = operator.apply(aux.getData());
+            aux.setData(newValue);
+            aux = aux.getNext();
+        }
 }
