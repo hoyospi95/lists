@@ -128,6 +128,7 @@ public boolean add(T e) {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
+        //No necesita modificaciones
         boolean add = false;
         for (T t : c) {
             if (add(t)) {
