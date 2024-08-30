@@ -424,7 +424,9 @@ public boolean add(T e) {
             }
             
         if (fromIndex > toIndex) {
-            
+            if (toIndex<=0) {
+                throw new IndexOutOfBoundsException("Índice fuera de rango");
+            }
             for (int i = indexOf(last) ; i > fromIndex; i--) {
                 if (last.getPrevious() == null) {
                     throw new IndexOutOfBoundsException("Índice fuera de rango");
@@ -457,8 +459,8 @@ public boolean add(T e) {
         sb.append("Null");
 
         return sb.toString();
+    } */
         
-    }*/
 
     @Override
     public boolean equals(Object o) {
