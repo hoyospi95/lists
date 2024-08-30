@@ -387,11 +387,6 @@ public boolean add(T e) {
         throw new UnsupportedOperationException("Unimplemented method 'subList'");
     }
 
-    public Iterator<T> descendingIterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'descendingIterator'");
-    }
-
     @Override
     public boolean equals(Object o) {
         // No es necesario.
