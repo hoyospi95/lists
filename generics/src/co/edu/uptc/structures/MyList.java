@@ -288,6 +288,7 @@ public class MyList<T> implements List<T> {
                 if (current.getNext() == null) {
                     recovered = current.getData();
                     previous.setNext(null);
+                    last = previous;
                     return recovered;
                 } else {
                     previous = current;
@@ -443,6 +444,7 @@ public class MyList<T> implements List<T> {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'subList'");
     }
+
 
     @Override
     public boolean equals(Object o) {
