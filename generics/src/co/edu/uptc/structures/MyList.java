@@ -63,24 +63,6 @@ public class MyList<T> implements List<T> {
         };
     }
 
-    public Iterator<T> descendingIterator() {
-        return new Iterator<T>() {
-
-            private Node<T> aux = last;
-
-            @Override
-            public boolean hasNext() {
-                return aux != null;
-            }
-
-            @Override
-            public T next() {
-                T value = aux.getData();
-                aux = aux.getPrevious();
-                return value;
-            }
-        };
-    }
 
     @Override
     public Object[] toArray() {
@@ -120,19 +102,25 @@ public class MyList<T> implements List<T> {
     @Override
     public boolean remove(Object o) {
         Node<T> temp = head;
-        Node<T> prev = null;
+
         while (temp != null) {
             if (temp.getData().equals(o)) {
-                if (prev == null) {
+                if (temp.equals(head)) {
                     head = temp.getNext();
+                } else if (temp.equals(last)) {
+                    last = temp.getPrevious();
+                    if (last != null) {
+                        last.setNext(null);
+                    }
                 } else {
-                    prev.setNext(prev.getNext());
+                    temp.getPrevious().setNext(temp.getNext());
+                    temp.getNext().setPrevious(temp.getPrevious());
                 }
+
+                return true;
             }
-            prev = temp;
             temp = temp.getNext();
         }
-
         return false;
     }
 
@@ -447,54 +435,8 @@ public class MyList<T> implements List<T> {
         throw new UnsupportedOperationException("Unimplemented method 'listIterator'");
     }
 
-    @Override
-    public List<T> subList(int fromIndex, int toIndex) {
+ 
 
-        if (fromIndex < 0 || toIndex > size()) {
-            throw new IndexOutOfBoundsException("Índice fuera de rango");
-        }
-        MyList<T> subList = new MyList<>();
-        Node<T> current = head;
-        Node<T> Finish = last;
-
-        if (fromIndex<toIndex) {
-                for (int i = 0; i < fromIndex; i++) {
-                    if (current == null) {
-                        throw new IndexOutOfBoundsException("Índice fuera de rango");
-                    }
-                    current = current.getNext();
-                }
-                
-                for (int i = fromIndex; i < toIndex; i++) {
-                    if (current == null) {
-                        break;
-                    }
-                    subList.add(current.getData());
-                    current = current.getNext();
-                }
-            }
-            
-        if (fromIndex > toIndex) {
-            if (toIndex<=0) {
-                throw new IndexOutOfBoundsException("Índice fuera de rango");
-            }
-            for (int i = indexOf(last) ; i > fromIndex; i--) {
-                if (last.getPrevious() == null) {
-                    throw new IndexOutOfBoundsException("Índice fuera de rango");
-                }
-                Finish = Finish.getPrevious();
-            }
-            
-            for (int i = fromIndex; i > toIndex; i--) {
-                if (last == null) {
-                    break;
-                }
-                subList.add(Finish.getData());
-                Finish = Finish.getPrevious();
-            }
-        }
-        return subList;
-    }
 
     @Override
     public boolean equals(Object o) {
