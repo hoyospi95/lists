@@ -207,30 +207,55 @@ public boolean add(T e) {
 
     @Override
     public T remove(int index) {
+
+        Node<T> current = head;
+        Node<T> previous = null;
+        T recovered = null;
+
         if (index < 0 || index >= size()) {
             return null;
         }
 
-        Node<T> aux = head;
-        Node<T> previous = null;
-        T recovered = null;
-
-        if (index == 0 && head != null) {
+        if (index == 0) {
             recovered = head.getData();
             head = head.getNext();
+            if (head != null) {
+                head.setPrevious(null);
+            } else {
+                last = null;
+            }
             return recovered;
         }
 
+        if (index == size()-1) {
+            while (current!=null) {
+                if (current.getNext() == null) {
+                    recovered = current.getData();
+                    previous.setNext(null);
+                    return recovered;
+                }else{
+                    previous = current;
+                    current = current.getNext();
+                }
+            }
+        }
+
         for (int i = 0; i < index; i++) {
-            previous = aux;
-            aux = aux.getNext();
+            current = current.getNext();
         }
-
-        if (aux != null) {
-            recovered = aux.getData();
-            previous.setNext(aux.getNext());
+    
+        recovered = current.getData();
+        previous = current.getPrevious();
+        Node<T> next = current.getNext();
+    
+        if (previous != null) {
+            previous.setNext(next);
         }
-
+    
+        if (next != null) {
+            next.setPrevious(previous);
+        }
+    
         return recovered;
     }
 
