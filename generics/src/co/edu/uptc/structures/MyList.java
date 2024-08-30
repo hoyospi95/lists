@@ -345,17 +345,9 @@ public class MyList<T> implements List<T> {
                 if (!hasPrevious()) {
                     throw new NoSuchElementException();
                 }
-                if (currentIndex == 1) {
-                    currentNode = head;
-                } else {
-                    currentNode = head;
-                    for (int i = 0; i < currentIndex - 1; i++) {
-                        currentNode = currentNode.getNext();
-                    }
-                    previousNode = currentNode;
-                    currentIndex--;
-
-                }
+                currentNode = previousNode;
+                previousNode = previousNode.getPrevious();
+                currentIndex--;
                 return currentNode.getData();
             }
 
@@ -376,6 +368,7 @@ public class MyList<T> implements List<T> {
                 }
                 MyList.this.remove(previousNode.getData());
                 previousNode = null;
+                currentIndex--; // Se reduce el indice porque se elimino un elemento
             }
 
             @Override
