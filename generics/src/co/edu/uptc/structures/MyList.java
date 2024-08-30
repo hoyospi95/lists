@@ -150,8 +150,13 @@ public boolean add(T e) {
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeAll'");
+	boolean temp = false;
+	for (Object o : c) {
+		while (remove(o)) {
+			temp = true;
+		}
+	}
+	return temp;
     }
 
     @Override
