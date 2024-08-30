@@ -317,13 +317,20 @@ public class MyList<T> implements List<T> {
     }
 
     @Override
-    public int indexOf(Object o) {
-        for (int i = 0; i < size(); i++) {
-            if (get(i).equals(o)) {
-                return i;
-            }
+    public int indexOf(Object o) {   //Modificado por que no encontré el que servia para la lista doble...
+        Node<T> aux = head;
+        int index = -1;
+        if (aux!=null) {  
+            index=0;
         }
-        return -1;
+        while (aux!=null) {
+            if (o.equals(aux.getData())) {
+                return index;
+            }
+            aux = aux.getNext();
+            index++;
+        }
+        return index;
     }
 
     @Override
@@ -441,10 +448,52 @@ public class MyList<T> implements List<T> {
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'subList'");
-    }
 
+        if (fromIndex < 0 || toIndex > size()) {
+            throw new IndexOutOfBoundsException("Índice fuera de rango");
+        }
+        MyList<T> subList = new MyList<>();
+        Node<T> current = head;
+        Node<T> Finish = last;
+
+        if (fromIndex<toIndex) {
+                for (int i = 0; i < fromIndex; i++) {
+                    if (current == null) {
+                        throw new IndexOutOfBoundsException("Índice fuera de rango");
+                    }
+                    current = current.getNext();
+                }
+                
+                for (int i = fromIndex; i < toIndex; i++) {
+                    if (current == null) {
+                        break;
+                    }
+                    subList.add(current.getData());
+                    current = current.getNext();
+                }
+            }
+            
+        if (fromIndex > toIndex) {
+            if (toIndex<=0) {
+                throw new IndexOutOfBoundsException("Índice fuera de rango");
+            }
+            for (int i = indexOf(last) ; i > fromIndex; i--) {
+                if (last.getPrevious() == null) {
+                    throw new IndexOutOfBoundsException("Índice fuera de rango");
+                }
+                Finish = Finish.getPrevious();
+            }
+            
+            for (int i = fromIndex; i > toIndex; i--) {
+                if (last == null) {
+                    break;
+                }
+                subList.add(Finish.getData());
+                Finish = Finish.getPrevious();
+            }
+        }
+        return subList;
+    }
 
     @Override
     public boolean equals(Object o) {
