@@ -28,6 +28,7 @@ public class MyList<T> implements List<T> {
         throw new UnsupportedOperationException("Unimplemented method");
     }
 
+    //The method is same in the simple list and in the double list.
     @Override
     public boolean contains(Object o) {
         Node<T> aux = head;
@@ -40,313 +41,313 @@ public class MyList<T> implements List<T> {
         return false;
     }
 
-    @Override
-    public Iterator<T> iterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
-    }
+@Override
+public Iterator<T> iterator() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'iterator'");
+}
 
-    @Override
-    public Object[] toArray() {
-        Object[] array = new Object[size()];
-        Node<T> aux = head;
-        for (int i = 0; i < size(); i++) {
-            array[i] = aux;
+@Override
+public Object[] toArray() {
+    Object[] array = new Object[size()];
+    Node<T> aux = head;
+    for (int i = 0; i < size(); i++) {
+        array[i] = aux;
+        aux = aux.getNext();
+    }
+    return array;
+}
+
+@Override
+public <T> T[] toArray(T[] a) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'toArray'");
+}
+
+@Override
+public boolean add(T e) {
+    Node<T> newNode = new Node<T>(e);
+    if (this.head == null) {
+        this.head = newNode;
+    } else {
+        Node<T> aux = this.head;
+        while (aux.getNext() != null) {
             aux = aux.getNext();
         }
-        return array;
+        aux.setNext(newNode);
     }
+    return true;
+}
 
-    @Override
-    public <T> T[] toArray(T[] a) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toArray'");
-    }
-
-    @Override
-    public boolean add(T e) {
-        Node<T> newNode = new Node<T>(e);
-        if (this.head == null) {
-            this.head = newNode;
-        } else {
-            Node<T> aux = this.head;
-            while (aux.getNext() != null) {
-                aux = aux.getNext();
-            }
-            aux.setNext(newNode);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean remove(Object o) {
-        Node<T> temp = head;
-        Node<T> prev = null;
-        while (temp != null) {
-            if (temp.getData().equals(o)) {
-                if (prev == null) {
-                    head = temp.getNext();
-                } else {
-                    prev.setNext(prev.getNext());
-                }
-            }
-            prev = temp;
-            temp = temp.getNext();
-        }
-
-        return false;
-    }
-
-    @Override
-    public boolean containsAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'containsAll'");
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends T> c) {
-        boolean add = false;
-        for (T t : c) {
-            if (add(t)) {
-                add = true;
-            }
-        }
-        return add;
-    }
-
-    @Override
-    public boolean addAll(int index, Collection<? extends T> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addAll'");
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeAll'");
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        Node<T> aux = head;
-        Node<T> previous = null;
-        boolean modified = false;
-        while (aux != null) {
-            if (!c.contains(aux.getData())) {
-                previous.setNext(aux.getNext());
-                modified = true;
+@Override
+public boolean remove(Object o) {
+    Node<T> temp = head;
+    Node<T> prev = null;
+    while (temp != null) {
+        if (temp.getData().equals(o)) {
+            if (prev == null) {
+                head = temp.getNext();
             } else {
-                previous = aux;
-            }
-            aux = aux.getNext();
-        }
-        return modified;
-    }
-
-    @Override
-    public void clear() {
-        this.head = null;
-    }
-
-    @Override
-    public T get(int index) {
-        Node<T> aux = head;
-        T data = null;
-        for (int i = 0; i < size(); i++) {
-            if (i == index) {
-                data = aux.getData();
-            } else {
-                aux = aux.getNext();
+                prev.setNext(prev.getNext());
             }
         }
-        return data;
+        prev = temp;
+        temp = temp.getNext();
     }
 
-    @Override
-    public T set(int index, T element) {
-        Node<T> nodeSet = new Node<T>(element);
-        Node<T> auxNode = head;
-        Node<T> deleted = null;
-        int count = 0;
-        while (auxNode != null && count < index - 1) {
-            auxNode = auxNode.getNext();
-            count++;
-        }
-        if (auxNode != null) {
-            deleted = auxNode.getNext();
-            nodeSet.setNext(auxNode.getNext().getNext());
-            auxNode.setNext(nodeSet);
-            return deleted.getData();
-        } else {
-            return null;
+    return false;
+}
+
+@Override
+public boolean containsAll(Collection<?> c) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'containsAll'");
+}
+
+@Override
+public boolean addAll(Collection<? extends T> c) {
+    boolean add = false;
+    for (T t : c) {
+        if (add(t)) {
+            add = true;
         }
     }
+    return add;
+}
 
-    @Override
-    public void add(int index, T element) {
-        if (index >= size()) {
-            add(element);
-        } else if (index == 0) {
-            Node<T> temp = new Node<T>(element);
-            temp.setNext(head);
-            head = temp;
-        } else {
-            Node<T> aux = head;
-            for (int i = 0; aux != null && i < index; i++) {
-                aux = aux.getNext();
-            }
-            Node<T> temp = new Node<T>(element);
-            temp.setNext(aux.getNext());
-            aux.setNext(temp);
-        }
-    }
+@Override
+public boolean addAll(int index, Collection<? extends T> c) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'addAll'");
+}
 
-    @Override
-    public T remove(int index) {
-        if (index < 0 || index >= size()) {
-            return null;
-        }
+@Override
+public boolean removeAll(Collection<?> c) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'removeAll'");
+}
 
-        Node<T> aux = head;
-        Node<T> previous = null;
-        T recovered = null;
-
-        if (index == 0 && head != null) {
-            recovered = head.getData();
-            head = head.getNext();
-            return recovered;
-        }
-
-        for (int i = 0; i < index; i++) {
-            previous = aux;
-            aux = aux.getNext();
-        }
-
-        if (aux != null) {
-            recovered = aux.getData();
+@Override
+public boolean retainAll(Collection<?> c) {
+    Node<T> aux = head;
+    Node<T> previous = null;
+    boolean modified = false;
+    while (aux != null) {
+        if (!c.contains(aux.getData())) {
             previous.setNext(aux.getNext());
+            modified = true;
+        } else {
+            previous = aux;
         }
+        aux = aux.getNext();
+    }
+    return modified;
+}
 
+@Override
+public void clear() {
+    this.head = null;
+}
+
+@Override
+public T get(int index) {
+    Node<T> aux = head;
+    T data = null;
+    for (int i = 0; i < size(); i++) {
+        if (i == index) {
+            data = aux.getData();
+        } else {
+            aux = aux.getNext();
+        }
+    }
+    return data;
+}
+
+@Override
+public T set(int index, T element) {
+    Node<T> nodeSet = new Node<T>(element);
+    Node<T> auxNode = head;
+    Node<T> deleted = null;
+    int count = 0;
+    while (auxNode != null && count < index - 1) {
+        auxNode = auxNode.getNext();
+        count++;
+    }
+    if (auxNode != null) {
+        deleted = auxNode.getNext();
+        nodeSet.setNext(auxNode.getNext().getNext());
+        auxNode.setNext(nodeSet);
+        return deleted.getData();
+    } else {
+        return null;
+    }
+}
+
+@Override
+public void add(int index, T element) {
+    if (index >= size()) {
+        add(element);
+    } else if (index == 0) {
+        Node<T> temp = new Node<T>(element);
+        temp.setNext(head);
+        head = temp;
+    } else {
+        Node<T> aux = head;
+        for (int i = 0; aux != null && i < index; i++) {
+            aux = aux.getNext();
+        }
+        Node<T> temp = new Node<T>(element);
+        temp.setNext(aux.getNext());
+        aux.setNext(temp);
+    }
+}
+
+@Override
+public T remove(int index) {
+    if (index < 0 || index >= size()) {
+        return null;
+    }
+
+    Node<T> aux = head;
+    Node<T> previous = null;
+    T recovered = null;
+
+    if (index == 0 && head != null) {
+        recovered = head.getData();
+        head = head.getNext();
         return recovered;
     }
 
-    @Override
-    public int indexOf(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'indexOf'");
+    for (int i = 0; i < index; i++) {
+        previous = aux;
+        aux = aux.getNext();
     }
 
-    @Override
-    public int lastIndexOf(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'lastIndexOf'");
+    if (aux != null) {
+        recovered = aux.getData();
+        previous.setNext(aux.getNext());
     }
 
-    @Override
-    public ListIterator<T> listIterator() {
-        return new ListIterator<T>() {
-            private Node<T> currentNode = head;
-            private Node<T> previousNode = null;
-            private int currentIndex = 0;
+    return recovered;
+}
 
-            @Override
-            public boolean hasNext() {
-                return currentNode != null;
+@Override
+public int indexOf(Object o) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'indexOf'");
+}
+
+@Override
+public int lastIndexOf(Object o) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'lastIndexOf'");
+}
+
+@Override
+public ListIterator<T> listIterator() {
+    return new ListIterator<T>() {
+        private Node<T> currentNode = head;
+        private Node<T> previousNode = null;
+        private int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentNode != null;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
             }
+            previousNode = currentNode;
+            currentNode = currentNode.getNext();
+            currentIndex++;
+            return previousNode.getData();
+        }
 
-            @Override
-            public T next() {
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
+        @Override
+        public boolean hasPrevious() {
+            return previousNode != null;
+        }
+
+        @Override
+        public T previous() {
+            if (!hasPrevious()) {
+                throw new NoSuchElementException();
+            }
+            if (currentIndex == 1) {
+                currentNode = head;
+            } else {
+                currentNode = head;
+                for (int i = 0; i < currentIndex - 1; i++) {
+                    currentNode = currentNode.getNext();
                 }
                 previousNode = currentNode;
-                currentNode = currentNode.getNext();
-                currentIndex++;
-                return previousNode.getData();
+                currentIndex--;
+
             }
+            return currentNode.getData();
+        }
 
-            @Override
-            public boolean hasPrevious() {
-                return previousNode != null;
+        @Override
+        public int nextIndex() {
+            return currentIndex;
+        }
+
+        @Override
+        public int previousIndex() {
+            return currentIndex - 1;
+        }
+
+        @Override
+        public void remove() {
+            if (previousNode == null) {
+                throw new IllegalStateException();
             }
+            MyList.this.remove(previousNode.getData());
+            previousNode = null;
+        }
 
-            @Override
-            public T previous() {
-                if (!hasPrevious()) {
-                    throw new NoSuchElementException();
-                }
-                if (currentIndex == 1) {
-                    currentNode = head;
-                } else {
-                    currentNode = head;
-                    for (int i = 0; i < currentIndex - 1; i++) {
-                        currentNode = currentNode.getNext();
-                    }
-                    previousNode = currentNode;
-                    currentIndex--;
-
-                }
-                return currentNode.getData();
+        @Override
+        public void set(T e) {
+            if (previousNode == null) {
+                throw new IllegalStateException();
             }
+            previousNode.setData(e);
+        }
 
-            @Override
-            public int nextIndex() {
-                return currentIndex;
-            }
+        @Override
+        public void add(T e) {
+            MyList.this.add(currentIndex, e);
+            previousNode = null;
+            currentIndex++;
+        }
 
-            @Override
-            public int previousIndex() {
-                return currentIndex - 1;
-            }
+    };
 
-            @Override
-            public void remove() {
-                if (previousNode == null) {
-                    throw new IllegalStateException();
-                }
-                MyList.this.remove(previousNode.getData());
-                previousNode = null;
-            }
+}
 
-            @Override
-            public void set(T e) {
-                if (previousNode == null) {
-                    throw new IllegalStateException();
-                }
-                previousNode.setData(e);
-            }
+@Override
+public ListIterator<T> listIterator(int index) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'listIterator'");
+}
 
-            @Override
-            public void add(T e) {
-                MyList.this.add(currentIndex, e);
-                previousNode = null;
-                currentIndex++;
-            }
+@Override
+public List<T> subList(int fromIndex, int toIndex) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'subList'");
+}
 
-        };
+public Iterator<T> descendingIterator() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'descendingIterator'");
+}
 
-    }
-
-    @Override
-    public ListIterator<T> listIterator(int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listIterator'");
-    }
-
-    @Override
-    public List<T> subList(int fromIndex, int toIndex) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'subList'");
-    }
-
-    public Iterator<T> descendingIterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'descendingIterator'");
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        // No es necesario.
-        throw new UnsupportedOperationException("Unimplemented method 'equals'");
-    }
+@Override
+public boolean equals(Object o) {
+    // No es necesario.
+    throw new UnsupportedOperationException("Unimplemented method 'equals'");
+}
 }
