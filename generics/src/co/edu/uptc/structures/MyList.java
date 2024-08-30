@@ -80,6 +80,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public <T> T[] toArray(T[] a) {
+        //No se necesita modificacion en las listas dobles
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'toArray'");
     }
@@ -384,11 +385,6 @@ public boolean add(T e) {
     public List<T> subList(int fromIndex, int toIndex) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'subList'");
-    }
-
-    public Iterator<T> descendingIterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'descendingIterator'");
     }
 
     @Override
