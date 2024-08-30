@@ -12,6 +12,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public int size() {
+        //El metodo no necesita cambios al implementar la lista doblemente enlazada
         Node<T> aux = head;
         int count = 0;
         while (aux != null) {
