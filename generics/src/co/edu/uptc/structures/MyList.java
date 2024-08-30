@@ -261,8 +261,12 @@ public boolean add(T e) {
 
     @Override
     public int indexOf(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'indexOf'");
+        for (int i = 0; i < size(); i++) {
+            if (get(i).equals(o)) {
+                return i;
+            }
+        }
+        return -1;
     }
     @Override
     public int lastIndexOf(Object o) {
