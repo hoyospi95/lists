@@ -24,13 +24,11 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method");
+        return head == null;
     }
 
     @Override
     public boolean contains(Object o) {
-
         Node<T> aux = head;
         while (aux != null) {
             if (aux.getData().equals(o)) {
@@ -43,8 +41,19 @@ public class MyList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
+            return new Iterator<T>() {
+                Node <T> aux = head;
+                @Override
+                public boolean hasNext(){
+                    return aux != null;
+                }
+
+                public T next(){
+                    T value = aux.getData();
+                    aux = aux.getNext();
+                    return value;
+                }
+            };
     }
 
     public Iterator<T> descendingIterator(){
@@ -86,20 +95,20 @@ public class MyList<T> implements List<T> {
     }
 
     @Override
-public boolean add(T e) {
-    Node<T> newNode = new Node<>(e);
-    
-    if (head == null) {
-        head = newNode;
-        last = newNode;
-    } else {
-        last.setNext(newNode);
-        newNode.setPrevious(last);
-        last = newNode;
+    public boolean add(T e) {
+        Node<T> newNode = new Node<>(e);
+        
+        if (head == null) {
+            head = newNode;
+            last = newNode;
+        } else {
+            last.setNext(newNode);
+            newNode.setPrevious(last);
+            last = newNode;
+        }
+        
+        return true;
     }
-    
-    return true;
-}
 
 
     @Override
@@ -123,8 +132,12 @@ public boolean add(T e) {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'containsAll'");
+        for (Object object : c) {
+			if(!contains(object)) {
+				return false;
+			}
+		}
+		return true;
     }
 
     @Override
@@ -141,25 +154,46 @@ public boolean add(T e) {
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addAll'");
+        Node<T> aux = head;
+		int i = 0;
+		while(aux != null && i<index+c.size()) {
+			if(i==index) {
+				for (T element : c) {
+					this.add(i,element);
+					i++;
+				}
+			}
+			i++;
+		}
+		return true;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-	boolean temp = false;
-	for (Object o : c) {
-		while (remove(o)) {
-			temp = true;
-		}
-	}
-	return temp;
+        boolean temp = false;
+        for (Object o : c) {
+            while (remove(o)) {
+                temp = true;
+            }
+        }
+        return temp;
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'retainAll'");
+        Node<T> aux = head;
+        Node<T> previous = null;
+        boolean modified = false;
+        while (aux != null) {
+            if (!c.contains(aux.getData())) {
+                previous.setNext(aux.getNext());
+                modified = true;
+            } else {
+                previous = aux;
+            }
+            aux = aux.getNext();
+        }
+        return modified;
     }
 
     @Override
@@ -184,8 +218,22 @@ public boolean add(T e) {
 
     @Override
     public T set(int index, T element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'set'");
+        Node<T> nodeSet = new Node<T>(element);
+        Node<T> auxNode = head;
+        Node<T> deleted = null;
+        int count = 0;
+        while (auxNode != null && count < index - 1) {
+            auxNode = auxNode.getNext();
+            count++;
+        }
+        if (auxNode != null) {
+            deleted = auxNode.getNext();
+            nodeSet.setNext(auxNode.getNext().getNext());
+            auxNode.setNext(nodeSet);
+            return deleted.getData();
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -263,6 +311,8 @@ public boolean add(T e) {
 
     @Override
     public int indexOf(Object o) {
+        Node<T> aux = head;
+        int index = 0;
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'indexOf'");
     }
