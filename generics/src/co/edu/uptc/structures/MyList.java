@@ -76,19 +76,21 @@ public class MyList<T> implements List<T> {
     }
 
     @Override
-    public boolean add(T e) {
-        Node<T> newNode = new Node<T>(e);
-        if (this.head == null) {
-            this.head = newNode;
-        } else {
-            Node<T> aux = this.head;
-            while (aux.getNext() != null) {
-                aux = aux.getNext();
-            }
-            aux.setNext(newNode);
-        }
-        return true;
+public boolean add(T e) {
+    Node<T> newNode = new Node<>(e);
+    
+    if (head == null) {
+        head = newNode;
+        last = newNode;
+    } else {
+        last.setNext(newNode);
+        newNode.setPrevious(last);
+        last = newNode;
     }
+    
+    return true;
+}
+
 
     @Override
     public boolean remove(Object o) {
@@ -171,7 +173,8 @@ public class MyList<T> implements List<T> {
 
     @Override
     public void clear() {
-        this.head = null;
+        head = null;
+        last = null;
     }
 
     @Override
