@@ -183,8 +183,28 @@ public boolean add(T e) {
 
     @Override
     public T set(int index, T element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'set'");
+        //El metodo tenia un error al intentar setear el nodo en la posicion 0 (Se trato de mantener la logica del metodo original)
+        Node<T> nodeSet = new Node<T>(element);
+        Node<T> auxNode = head;
+        Node<T> deleted = null;
+        int count = 0;
+        while (auxNode != null && count < index - 1) {
+            auxNode = auxNode.getNext();
+            count++;
+        }
+        if (index>0) {
+            deleted = auxNode.getNext();
+            nodeSet.setNext(auxNode.getNext().getNext());
+            nodeSet.setPrevious(auxNode);
+            auxNode.setNext(nodeSet);
+            System.out.println(auxNode.getNext().getPrevious().getData());
+                return deleted.getData();
+        } else {
+            deleted=auxNode;
+            nodeSet.setNext(auxNode.getNext());
+            this.head=nodeSet;
+                return deleted.getData();
+        }
     }
 
     @Override
