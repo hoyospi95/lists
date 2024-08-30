@@ -65,8 +65,17 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
+<<<<<<< Updated upstream
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'containsAll'");
+=======
+        for (Object object : c) {
+            if (!contains(object)) {
+                return false;
+            }
+        }
+        return true;
+>>>>>>> Stashed changes
     }
 
     @Override
@@ -113,8 +122,32 @@ public class MyList<T> implements List<T> {
 
     @Override
     public void add(int index, T element) {
+<<<<<<< Updated upstream
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'add'");
+=======
+        //el metodo tenia errores, se tuvo que implementar un nodo previous
+        if (index >= size()) {
+            add(element);
+        } else if (index == 0) {
+            Node<T> temp = new Node<T>(element);
+            temp.setNext(head);
+            head.setPrevious(temp);
+            head = temp;
+        } else {
+            Node<T> temp = new Node<T>(element);
+            Node<T> aux = head;
+            Node<T> previus = null;
+            for (int i = 0; aux != null && i < index; i++) {
+                previus = aux;
+                aux = aux.getNext();
+            }
+            previus.setNext(temp);
+            temp.setPrevious(previus);
+            temp.setNext(aux);
+            aux.setPrevious(temp);
+        }
+>>>>>>> Stashed changes
     }
 
     @Override
