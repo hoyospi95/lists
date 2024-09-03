@@ -120,7 +120,13 @@ class MyListTest {
 
 	@Test
 	void testGet() {
-		fail("Not yet implemented");
+		ArrayList<String> names = new ArrayList<String>();
+		names.add("juan");
+		names.add("lola");
+		names.add("juanita");
+		names.add("tony")
+
+		assertEquals("tony", names.get(3))
 	}
 
 	@Test
