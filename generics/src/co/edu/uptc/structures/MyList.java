@@ -450,5 +450,24 @@ public class MyList<T> implements List<T> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    public Iterator<T> descendingIterator() {
+        return new Iterator<T>() {
+
+            private Node<T> aux = last;
+
+            @Override
+            public boolean hasNext() {
+                return aux != null;
+            }
+
+            @Override
+            public T next() {
+                T value = aux.getData();
+                aux = aux.getPrevious();
+                return value;
+            }
+        };
+    }
 	
 }

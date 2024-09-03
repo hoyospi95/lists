@@ -227,4 +227,11 @@ class MyListTest {
 		fail("Not yet implemented");
 	}
 
+	@Test
+	void testDescendingIterator() {
+		Iterator<String> iterator = list.descendingIterator();
+		assertEquals(true, iterator.hasNext());
+		assertEquals("lola", iterator.next());
+	}
+
 }
