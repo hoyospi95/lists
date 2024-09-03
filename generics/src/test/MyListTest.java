@@ -6,15 +6,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import co.edu.uptc.structures.MyList;
 
 class MyListTest {
-	private static MyList<String> list;
+	private MyList<String> list;
 	
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
+	@BeforeEach
+	void setUpBeforeEach() throws Exception {
 		list = new MyList<String>();
 		list.add("juan");
 		list.add("lola");
@@ -28,7 +29,7 @@ class MyListTest {
 	@Test
 	void testIsEmpty() {
 		MyList<String> list2 = new MyList<String>();
-		assertEquals(true, list.isEmpty());
+		assertEquals(true, list2.isEmpty());
 	}
 
 	@Test
