@@ -125,7 +125,8 @@ class MyListTest {
 
 	@Test
 	void testSet() {
-		fail("Not yet implemented");
+		list.set(0, "pedro");
+		assertEquals("pedro", list.get(0));
 	}
 
 	@Test
