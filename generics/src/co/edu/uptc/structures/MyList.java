@@ -13,7 +13,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public int size() {
-        //El metodo no necesita cambios al implementar la lista doblemente enlazada
+        // El metodo no necesita cambios al implementar la lista doblemente enlazada
         Node<T> aux = head;
         int count = 0;
         while (aux != null) {
@@ -25,11 +25,11 @@ public class MyList<T> implements List<T> {
 
     @Override
     public boolean isEmpty() {
-        return head == null;
+        return head == null && last == null;
     }
 
     @Override
-    //The method is same in the simple list and in the double list.
+    // The method is same in the simple list and in the double list.
     public boolean contains(Object o) {
         Node<T> aux = head;
         while (aux != null) {
@@ -43,7 +43,7 @@ public class MyList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-         // No necesita cambio
+        // No necesita cambio
         return new Iterator<T>() {
             private Node<T> auxnode = head;
 
@@ -63,7 +63,6 @@ public class MyList<T> implements List<T> {
             }
         };
     }
-
 
     @Override
     public Object[] toArray() {
@@ -128,11 +127,11 @@ public class MyList<T> implements List<T> {
     @Override
     public boolean containsAll(Collection<?> c) {
         for (Object object : c) {
-			if(!contains(object)) {
-				return false;
-			}
-		}
-		return true;
+            if (!contains(object)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -150,17 +149,17 @@ public class MyList<T> implements List<T> {
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
         Node<T> aux = head;
-		int i = 0;
-		while(aux != null && i<index+c.size()) {
-			if(i==index) {
-				for (T element : c) {
-					this.add(i,element);
-					i++;
-				}
-			}
-			i++;
-		}
-		return true;
+        int i = 0;
+        while (aux != null && i < index + c.size()) {
+            if (i == index) {
+                for (T element : c) {
+                    this.add(i, element);
+                    i++;
+                }
+            }
+            i++;
+        }
+        return true;
     }
 
     @Override
@@ -221,17 +220,17 @@ public class MyList<T> implements List<T> {
             auxNode = auxNode.getNext();
             count++;
         }
-        if (index>0) {
+        if (index > 0) {
             deleted = auxNode.getNext();
             nodeSet.setNext(auxNode.getNext().getNext());
             nodeSet.setPrevious(auxNode);
             auxNode.setNext(nodeSet);
         } else {
-            deleted=auxNode;
+            deleted = auxNode;
             nodeSet.setNext(auxNode.getNext());
-            this.head=nodeSet;
+            this.head = nodeSet;
         }
-            return deleted.getData();
+        return deleted.getData();
     }
 
     @Override
@@ -309,14 +308,14 @@ public class MyList<T> implements List<T> {
     }
 
     @Override
-    public int indexOf(Object o) {   
-        //Modificado por que no encontré el que servia para la lista doble...
+    public int indexOf(Object o) {
+        // Modificado por que no encontré el que servia para la lista doble...
         Node<T> aux = head;
         int index = -1;
-        if (aux!=null) {  
-            index=0;
+        if (aux != null) {
+            index = 0;
         }
-        while (aux!=null) {
+        while (aux != null) {
             if (o.equals(aux.getData())) {
                 return index;
             }
@@ -435,24 +434,105 @@ public class MyList<T> implements List<T> {
 
     @Override
     public ListIterator<T> listIterator(int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listIterator'");
-    }
+        if (index < 0 || index > size()) {
+            throw new IndexOutOfBoundsException("Índice fuera de rango");
+        }
 
+        return new ListIterator<T>() {
+            private Node<T> currentNode = getNode(index);
+            private Node<T> lastReturned = null;
+            private int nextIndex = index;
+
+            @Override
+            public boolean hasNext() {
+                return nextIndex < size();
+            }
+
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                lastReturned = currentNode;
+                currentNode = currentNode.getNext();
+                nextIndex++;
+                return lastReturned.getData();
+            }
+
+            @Override
+            public boolean hasPrevious() {
+                return nextIndex > 0;
+            }
+
+            @Override
+            public T previous() {
+                if (!hasPrevious()) {
+                    throw new NoSuchElementException();
+                }
+                currentNode = (currentNode == null) ? getNode(size() - 1) : getNode(nextIndex - 1);
+                lastReturned = currentNode;
+                nextIndex--;
+                return lastReturned.getData();
+            }
+
+            @Override
+            public int nextIndex() {
+                return nextIndex;
+            }
+
+            @Override
+            public int previousIndex() {
+                return nextIndex - 1;
+            }
+
+            @Override
+            public void remove() {
+                if (lastReturned == null) {
+                    throw new IllegalStateException();
+                }
+                MyList.this.remove(nextIndex - 1);
+                nextIndex--;
+                lastReturned = null;
+            }
+
+            @Override
+            public void set(T e) {
+                if (lastReturned == null) {
+                    throw new IllegalStateException();
+                }
+                lastReturned.setData(e);
+            }
+
+            @Override
+            public void add(T e) {
+                MyList.this.add(nextIndex, e);
+                nextIndex++;
+                lastReturned = null;
+            }
+
+            private Node<T> getNode(int index) {
+                Node<T> aux = head;
+                for (int i = 0; i < index; i++) {
+                    aux = aux.getNext();
+                }
+                return aux;
+            }
+        };
+    }
 
     public void replaceAll2(UnaryOperator<T> operator) {
         Node<T> aux = head;
-        while (aux!= null) {
+        while (aux != null) {
             T newValue = operator.apply(aux.getData());
             aux.setData(newValue);
             aux = aux.getNext();
         }
-}
+    }
 
-	@Override
-	public List<T> subList(int fromIndex, int toIndex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+    @Override
+    public List<T> subList(int fromIndex, int toIndex) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
