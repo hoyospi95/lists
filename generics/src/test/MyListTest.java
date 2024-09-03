@@ -146,7 +146,8 @@ class MyListTest {
 
 	@Test
 	void testRemoveInt() {
-		fail("Not yet implemented");
+		list.remove(1);
+		assertFalse(list.contains("lola"));
 	}
 
 	@Test
