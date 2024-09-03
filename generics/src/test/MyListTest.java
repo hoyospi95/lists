@@ -139,7 +139,7 @@ class MyListTest {
 
 	@Test
 	void testIndexOf() {
-		fail("Not yet implemented");
+		assertEquals(0, list.indexOf("juan"));
 	}
 
 	@Test
