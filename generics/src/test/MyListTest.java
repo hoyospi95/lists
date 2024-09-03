@@ -42,6 +42,9 @@ class MyListTest {
 		Iterator<String> iterator = list.iterator();
 		assertEquals(true, iterator.hasNext());
 		assertEquals("juan", iterator.next());
+		assertEquals("lola", iterator.next());
+		
+
 	}
 
 	@Test
