@@ -109,7 +109,10 @@ class MyListTest {
 
 	@Test
 	void testRetainAll() {
-		fail("Not yet implemented");
+		ArrayList<String> namesToRetain = new ArrayList<>();
+		namesToRetain.add("lola");
+		list.retainAll(namesToRetain);
+		assertEquals(true, list.get(0).equals("lola"));
 	}
 
 	@Test
@@ -134,7 +137,8 @@ class MyListTest {
 
 	@Test
 	void testRemoveInt() {
-		fail("Not yet implemented");
+		list.remove(1);
+		assertFalse(list.contains("lola"));
 	}
 
 	@Test

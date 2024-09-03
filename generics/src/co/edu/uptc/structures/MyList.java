@@ -180,12 +180,20 @@ public class MyList<T> implements List<T> {
         boolean modified = false;
         while (aux != null) {
             if (!c.contains(aux.getData())) {
-                previous.setNext(aux.getNext());
-                modified = true;
+                if (aux.equals(head)) {
+                    head = aux.getNext();
+                    head.setPrevious(previous);
+                }else{
+                    previous.setNext(aux.getNext());
+                    modified = true;
+                }
             } else {
                 previous = aux;
             }
             aux = aux.getNext();
+            if (aux!=null) {
+                aux.setPrevious(previous);
+            }
         }
         return modified;
     }
