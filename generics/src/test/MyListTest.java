@@ -144,7 +144,14 @@ class MyListTest {
 
 	@Test
 	void testLastIndexOf() {
-		fail("Not yet implemented");
+		ArrayList<String> names = new ArrayList<String>();
+		names.add("juan");
+		names.add("carlos");
+		names.add("sara");
+		names.add("fernando");
+		names.add("juan");
+		
+		assertEquals(4, names.lastIndexOf("juan"));
 	}
 
 	@Test
