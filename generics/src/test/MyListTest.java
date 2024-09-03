@@ -187,7 +187,11 @@ class MyListTest {
 
 	@Test
 	void testSubList() {
-		fail("Not yet implemented");
+
+		MyList<String> subList= (MyList<String>) list.subList(0, 1);
+
+		assertEquals(true, subList.get(0).equals("juan"));
+
 	}
 
 	@Test
