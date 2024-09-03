@@ -13,7 +13,7 @@ import co.edu.uptc.structures.MyList;
 
 class MyListTest {
 	private MyList<String> list;
-	
+
 	@BeforeEach
 	void setUpBeforeEach() throws Exception {
 		list = new MyList<String>();
@@ -131,7 +131,8 @@ class MyListTest {
 
 	@Test
 	void testAddIntT() {
-		fail("Not yet implemented");
+		list.add(2, "diana");
+		assertEquals("diana", list.get(2));
 	}
 
 	@Test
@@ -152,7 +153,7 @@ class MyListTest {
 		names.add("sara");
 		names.add("fernando");
 		names.add("juan");
-		
+
 		assertEquals(4, names.lastIndexOf("juan"));
 	}
 
