@@ -112,7 +112,10 @@ class MyListTest {
 
 	@Test
 	void testRetainAll() {
-		fail("Not yet implemented");
+		ArrayList<String> namesToRetain = new ArrayList<>();
+		namesToRetain.add("lola");
+		list.retainAll(namesToRetain);
+		assertEquals(true, list.get(0).equals("lola"));
 	}
 
 	@Test
