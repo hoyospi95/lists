@@ -164,7 +164,17 @@ class MyListTest {
 
 	@Test
 	void testSubList() {
-		fail("Not yet implemented");
+		
+		MyList<String> list = new MyList<>();
+
+        list.add("juan");
+        list.add("lola");
+        list.add("pedro");
+
+		MyList<String> subList= (MyList<String>) list.subList(1, 3);
+
+		assertEquals(true, subList.get(0).equals("lola")&&subList.get(1).equals("pedro"));
+
 	}
 
 	@Test
