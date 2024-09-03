@@ -220,14 +220,17 @@ public class MyList<T> implements List<T> {
             auxNode = auxNode.getNext();
             count++;
         }
-        if (auxNode != null) {
+        if (index>0) {
             deleted = auxNode.getNext();
             nodeSet.setNext(auxNode.getNext().getNext());
+            nodeSet.setPrevious(auxNode);
             auxNode.setNext(nodeSet);
-            return deleted.getData();
         } else {
-            return null;
+            deleted=auxNode;
+            nodeSet.setNext(auxNode.getNext());
+            this.head=nodeSet;
         }
+            return deleted.getData();
     }
 
     @Override
