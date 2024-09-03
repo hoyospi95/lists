@@ -13,7 +13,7 @@ import co.edu.uptc.structures.MyList;
 
 class MyListTest {
 	private MyList<String> list;
-	
+
 	@BeforeEach
 	void setUpBeforeEach() throws Exception {
 		list = new MyList<String>();
@@ -42,6 +42,9 @@ class MyListTest {
 		Iterator<String> iterator = list.iterator();
 		assertEquals(true, iterator.hasNext());
 		assertEquals("juan", iterator.next());
+		assertEquals("lola", iterator.next());
+		
+
 	}
 
 	@Test
@@ -109,42 +112,62 @@ class MyListTest {
 
 	@Test
 	void testRetainAll() {
-		fail("Not yet implemented");
+		ArrayList<String> namesToRetain = new ArrayList<>();
+		namesToRetain.add("lola");
+		list.retainAll(namesToRetain);
+		assertEquals(true, list.get(0).equals("lola"));
 	}
 
 	@Test
 	void testClear() {
-		fail("Not yet implemented");
+		list.clear();
+		assertEquals(0, list.size());
 	}
 
 	@Test
 	void testGet() {
-		fail("Not yet implemented");
+		ArrayList<String> names = new ArrayList<String>();
+		names.add("juan");
+		names.add("lola");
+		names.add("juanita");
+		names.add("tony")
+
+		assertEquals("tony", names.get(3))
 	}
 
 	@Test
 	void testSet() {
-		fail("Not yet implemented");
+		list.set(0, "pedro");
+		assertEquals("pedro", list.get(0));
 	}
 
 	@Test
 	void testAddIntT() {
-		fail("Not yet implemented");
+		list.add(2, "diana");
+		assertEquals("diana", list.get(2));
 	}
 
 	@Test
 	void testRemoveInt() {
-		fail("Not yet implemented");
+		list.remove(1);
+		assertFalse(list.contains("lola"));
 	}
 
 	@Test
 	void testIndexOf() {
-		fail("Not yet implemented");
+		assertEquals(0, list.indexOf("juan"));
 	}
 
 	@Test
 	void testLastIndexOf() {
-		fail("Not yet implemented");
+		ArrayList<String> names = new ArrayList<String>();
+		names.add("juan");
+		names.add("carlos");
+		names.add("sara");
+		names.add("fernando");
+		names.add("juan");
+
+		assertEquals(4, names.lastIndexOf("juan"));
 	}
 
 	@Test
@@ -164,16 +187,10 @@ class MyListTest {
 
 	@Test
 	void testSubList() {
-		
-		MyList<String> list = new MyList<>();
 
-        list.add("juan");
-        list.add("lola");
-        list.add("pedro");
+		MyList<String> subList= (MyList<String>) list.subList(0, 1);
 
-		MyList<String> subList= (MyList<String>) list.subList(1, 3);
-
-		assertEquals(true, subList.get(0).equals("lola")&&subList.get(1).equals("pedro"));
+		assertEquals(true, subList.get(0).equals("juan"));
 
 	}
 

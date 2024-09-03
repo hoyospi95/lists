@@ -29,6 +29,7 @@ public class MyList<T> implements List<T> {
     }
 
     @Override
+    //The method is same in the simple list and in the double list.
     public boolean contains(Object o) {
         Node<T> aux = head;
         while (aux != null) {
@@ -180,12 +181,20 @@ public class MyList<T> implements List<T> {
         boolean modified = false;
         while (aux != null) {
             if (!c.contains(aux.getData())) {
-                previous.setNext(aux.getNext());
-                modified = true;
+                if (aux.equals(head)) {
+                    head = aux.getNext();
+                    head.setPrevious(previous);
+                }else{
+                    previous.setNext(aux.getNext());
+                    modified = true;
+                }
             } else {
                 previous = aux;
             }
             aux = aux.getNext();
+            if (aux!=null) {
+                aux.setPrevious(previous);
+            }
         }
         return modified;
     }
@@ -220,14 +229,17 @@ public class MyList<T> implements List<T> {
             auxNode = auxNode.getNext();
             count++;
         }
-        if (auxNode != null) {
+        if (index>0) {
             deleted = auxNode.getNext();
             nodeSet.setNext(auxNode.getNext().getNext());
+            nodeSet.setPrevious(auxNode);
             auxNode.setNext(nodeSet);
-            return deleted.getData();
         } else {
-            return null;
+            deleted=auxNode;
+            nodeSet.setNext(auxNode.getNext());
+            this.head=nodeSet;
         }
+            return deleted.getData();
     }
 
     @Override
@@ -443,54 +455,33 @@ public class MyList<T> implements List<T> {
             aux.setData(newValue);
             aux = aux.getNext();
         }
-}
+    }
 
-	@Override
-	public List<T> subList(int fromIndex, int toIndex) {
-		if (fromIndex < 0 || toIndex > size()) {
+    @Override
+    public List<T> subList(int fromIndex, int toIndex) {
+        if (fromIndex < 0 || toIndex > size() || fromIndex > toIndex) {
             throw new IndexOutOfBoundsException("Índice fuera de rango");
         }
+
         MyList<T> subList = new MyList<>();
         Node<T> current = head;
-        Node<T> Finish = last;
 
-        if (fromIndex<toIndex) {
-                for (int i = 0; i < fromIndex; i++) {
-                    if (current == null) {
-                        throw new IndexOutOfBoundsException("Índice fuera de rango");
-                    }
-                    current = current.getNext();
-                }
-                
-                for (int i =fromIndex; i < toIndex; i++) {
-                    if (current == null) {
-                        break;
-                    }
-                    subList.add(current.getData());
-                    current = current.getNext();
-                }
-            }
-            
-        if (fromIndex > toIndex) {
-            if (toIndex<0) {
+        for (int i = 0; i < fromIndex; i++) {
+            if (current == null) {
                 throw new IndexOutOfBoundsException("Índice fuera de rango");
             }
-            for (int i = indexOf(last) ; i > fromIndex; i--) {
-                if (last.getPrevious() == null) {
-                    throw new IndexOutOfBoundsException("Índice fuera de rango");
-                }
-                Finish = Finish.getPrevious();
-            }
-            
-            for (int i = fromIndex; i > toIndex; i--) {
-                if (last == null) {
-                    break;
-                }
-                subList.add(Finish.getData());
-                Finish = Finish.getPrevious();
-            }
+            current = current.getNext();
         }
+
+        for (int i = fromIndex; i < toIndex; i++) {
+            if (current == null) {
+                break;
+            }
+            subList.add(current.getData());
+            current = current.getNext();
+        }
+
         return subList;
-	}
+    }
 	
 }
