@@ -114,7 +114,8 @@ class MyListTest {
 
 	@Test
 	void testClear() {
-		fail("Not yet implemented");
+		list.clear();
+		assertEquals(0, list.size());
 	}
 
 	@Test
