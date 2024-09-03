@@ -29,6 +29,7 @@ public class MyList<T> implements List<T> {
     }
 
     @Override
+    //The method is same in the simple list and in the double list.
     public boolean contains(Object o) {
         Node<T> aux = head;
         while (aux != null) {
