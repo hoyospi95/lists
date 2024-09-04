@@ -252,7 +252,7 @@ public class MyList<T> implements List<T> {
             head = temp;
         } else {
             Node<T> aux = head;
-            for (int i = 0; aux != null && i < index; i++) {
+            for (int i = 0; i < index-1; i++) {
                 aux = aux.getNext();
             }
             Node<T> temp = new Node<T>(element);
