@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.function.UnaryOperator;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -183,7 +184,9 @@ class MyListTest {
 
 	@Test
 	void testReplaceAll2() {
-		fail("Not yet implemented");
+		UnaryOperator<String>changeToUpperCase = x -> x.toUpperCase();
+		list.replaceAll2(changeToUpperCase);
+		assertEquals("JUAN", list.get(0));
 	}
 
 	@Test
