@@ -174,7 +174,38 @@ class MyListTest {
 
 	@Test
 	void testListIterator() {
-		fail("Not yet implemented");
+		ListIterator<String> iterator = list.listIterator();
+		assertTrue(iterator.hasNext());
+        assertEquals("juan", iterator.next());
+
+        assertTrue(iterator.hasNext());
+        assertEquals("lola", iterator.next());
+
+        assertFalse(iterator.hasNext());
+      
+        assertTrue(iterator.hasPrevious());
+        assertEquals("lola", iterator.previous());
+
+        assertTrue(iterator.hasPrevious());
+        assertEquals("juan", iterator.previous());
+
+        assertFalse(iterator.hasPrevious());
+        
+        iterator.next();
+        iterator.remove();
+        assertEquals(1, list.size());  
+        
+        iterator = list.listIterator();
+        iterator.next();
+        iterator.set("javier");
+        assertEquals("javier", list.listIterator().next());
+
+        
+        iterator.remove();
+        assertEquals(0, list.size()); 
+        
+        iterator.add("pablo");	
+		assertEquals("pablo", list.get(list.size()-1));
 	}
 
 	@Test
