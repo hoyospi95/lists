@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -254,4 +255,11 @@ class MyListTest {
 		fail("Not yet implemented");
 	}
 
+	@Test
+	void testDescendingIterator() {
+		Iterator<String> iterator = list.descendingIterator();
+		assertEquals(true, iterator.hasNext());
+		assertEquals("lola", iterator.next());
+		assertEquals("juan", iterator.next());
+	}
 }
